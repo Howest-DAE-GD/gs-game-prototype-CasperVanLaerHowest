@@ -11,7 +11,8 @@ public:
 	void Draw() const;
 	void Update(float elapsedSec);
 
-	void SetVisible();
+	void SetText(std::string text);
+	std::string GetText() const;
 private:
 
 	TextureManager* m_TextureManager;

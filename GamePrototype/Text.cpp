@@ -20,29 +20,27 @@ Text::~Text()
 
 void Text::Draw() const
 {
-
-	if (m_Visible)
+	for (int index = 0; index < m_LetterCounterMax; index++)
 	{
-		for (int index = 0; index < m_LetterCounter; index++)
-		{
-			char letter = m_Text.at(index);
-			m_TextureManager->Draw(25, GetRect(letter), Rectf{ m_Location.x + (m_LetterSize.x * 3.f * index),m_Location.y ,m_LetterSize.x * 3.f,m_LetterSize.y * 3.f });
-		}
-
+		char letter = m_Text.at(index);
+		m_TextureManager->Draw(25, GetRect(letter), Rectf{ m_Location.x + (m_LetterSize.x * 3.f * index),m_Location.y ,m_LetterSize.x * 3.f,m_LetterSize.y * 3.f });
 	}
 }
 
 void Text::Update(float elapsedSec)
 {
-	if (m_Visible)
-	{
-		m_Counter += elapsedSec;
-		if (m_LetterCounter < m_LetterCounterMax && m_Counter > 0.05f)
-		{
-			m_LetterCounter++;
-			m_Counter -= 0.05f;
-		}
-	}
+	
+}
+
+void Text::SetText(std::string text)
+{
+	m_Text = text;
+	m_LetterCounterMax = m_Text.size();
+}
+
+std::string Text::GetText() const
+{
+	return m_Text;
 }
 
 Rectf Text::GetRect(char letter) const
@@ -208,13 +206,39 @@ Rectf Text::GetRect(char letter) const
 	case ' ':
 		return Rectf{ (m_LetterSize.x * 25),(m_LetterSize.y * 4),m_LetterSize.x,m_LetterSize.y };
 		break;
+	case '0':
+		return Rectf{ (m_LetterSize.x * 0),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '1':
+		return Rectf{ (m_LetterSize.x * 1),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '2':
+		return Rectf{ (m_LetterSize.x * 2),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '3':
+		return Rectf{ (m_LetterSize.x * 3),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '4':
+		return Rectf{ (m_LetterSize.x * 4),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '5':
+		return Rectf{ (m_LetterSize.x * 5),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '6':
+		return Rectf{ (m_LetterSize.x * 6),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '7':
+		return Rectf{ (m_LetterSize.x * 7),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '8':
+		return Rectf{ (m_LetterSize.x * 8),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
+	case '9':
+		return Rectf{ (m_LetterSize.x * 9),(m_LetterSize.y * 1),m_LetterSize.x,m_LetterSize.y };
+		break;
 	default:
 		return Rectf{ (m_LetterSize.x * 25),(m_LetterSize.y * 3),m_LetterSize.x,m_LetterSize.y };
 		break;
 	}
 }
 
-void Text::SetVisible()
-{
-	m_Visible = true;
-}

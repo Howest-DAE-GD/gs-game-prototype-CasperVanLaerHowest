@@ -1,5 +1,7 @@
 #pragma once
 #include "BaseGame.h"
+#include "TextureManager.h"
+#include "Text.h"
 class Game : public BaseGame
 {
 public:
@@ -23,6 +25,9 @@ public:
 
 private:
 
+
+	TextureManager* m_TextureManager;
+	Text* m_Text;
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );

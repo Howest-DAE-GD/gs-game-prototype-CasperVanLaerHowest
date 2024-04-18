@@ -9,7 +9,7 @@ public:
 	~TextureManager();
 
 	void Draw(int id, Rectf srcR) const;
-	void Draw(int id, Rectf srcR, Color4f color) const;
+	/*void Draw(int id, Rectf srcR, Color4f color) const;*/
 	void Draw(int id, Rectf srcR, Rectf desR) const;
 
 	Point2f GetWidthHeight(int id);

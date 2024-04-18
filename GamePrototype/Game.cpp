@@ -14,7 +14,8 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-	
+	m_TextureManager = new TextureManager();
+	m_Text = new Text("100", Point2f{ 100,100 }, m_TextureManager);
 }
 
 void Game::Cleanup( )
@@ -23,21 +24,32 @@ void Game::Cleanup( )
 
 void Game::Update( float elapsedSec )
 {
-	// Check keyboard state
-	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	//if ( pStates[SDL_SCANCODE_RIGHT] )
-	//{
-	//	std::cout << "Right arrow key is down\n";
-	//}
-	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
-	//{
-	//	std::cout << "Left and up arrow keys are down\n";
-	//}
+	 //Check keyboard state
+	const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
+	if ( pStates[SDL_SCANCODE_RIGHT] )
+	{
+		std::string text = m_Text->GetText();
+		 uint64_t number = std::stoi(text);
+		number++;
+		std::string newText = std::to_string(number);
+
+		m_Text->SetText(newText);
+	}
+	if ( pStates[SDL_SCANCODE_LEFT] )
+	{
+		std::string text = m_Text->GetText();
+		 uint64_t number = std::stoi(text);
+		number--;
+		std::string newText = std::to_string(number);
+		m_Text->SetText(newText);
+	}
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground( );
+	
+	m_Text->Draw();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
