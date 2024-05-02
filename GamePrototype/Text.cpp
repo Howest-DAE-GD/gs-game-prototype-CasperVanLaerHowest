@@ -8,7 +8,7 @@ Text::Text(std::string text, Point2f location, TextureManager* textureManager) :
 	m_TextureManager{ textureManager }
 {
 	m_LetterCounterMax = m_Text.size();
-	m_LetterSize = m_TextureManager->GetWidthHeight(25);
+	m_LetterSize = m_TextureManager->GetWidthHeight(0);
 	m_LetterSize.x /= 26;
 	m_LetterSize.y /= 6;
 }
@@ -23,7 +23,7 @@ void Text::Draw() const
 	for (int index = 0; index < m_LetterCounterMax; index++)
 	{
 		char letter = m_Text.at(index);
-		m_TextureManager->Draw(25, GetRect(letter), Rectf{ m_Location.x + (m_LetterSize.x * 3.f * index),m_Location.y ,m_LetterSize.x * 3.f,m_LetterSize.y * 3.f });
+		m_TextureManager->Draw(0, GetRect(letter), Rectf{ m_Location.x + (m_LetterSize.x * 3.f * index),m_Location.y ,m_LetterSize.x * 3.f,m_LetterSize.y * 3.f });
 	}
 }
 

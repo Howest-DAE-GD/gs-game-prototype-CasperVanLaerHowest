@@ -15,7 +15,8 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	m_TextureManager = new TextureManager();
-	m_Text = new Text("100", Point2f{ 100,100 }, m_TextureManager);
+	m_TextManager = new TextManager(m_TextureManager);
+	//m_Text = new Text("100", Point2f{ 100,100 }, m_TextureManager);
 }
 
 void Game::Cleanup( )
@@ -29,7 +30,7 @@ void Game::Update( float elapsedSec )
 	if ( pStates[SDL_SCANCODE_RIGHT] )
 	{
 		std::string text = m_Text->GetText();
-		 uint64_t number = std::stoi(text);
+		uint64_t number = std::stoi(text);
 		number++;
 		std::string newText = std::to_string(number);
 
@@ -48,13 +49,14 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	
-	m_Text->Draw();
+	m_TextManager->Draw();
+	//m_Text->Draw();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
@@ -82,20 +84,20 @@ void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
+	m_TextManager->ProcessMouseDownEvent(e);
 	//std::cout << "MOUSEBUTTONDOWN event: ";
-	//switch ( e.button )
-	//{
-	//case SDL_BUTTON_LEFT:
-	//	std::cout << " left button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_RIGHT:
-	//	std::cout << " right button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_MIDDLE:
-	//	std::cout << " middle button " << std::endl;
-	//	break;
-	//}
-	
+	/*switch ( e.button )
+	{
+	case SDL_BUTTON_LEFT:
+		
+		break;
+	case SDL_BUTTON_RIGHT:
+		
+		break;
+	case SDL_BUTTON_MIDDLE:
+		
+		break;
+	}*/
 }
 
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )

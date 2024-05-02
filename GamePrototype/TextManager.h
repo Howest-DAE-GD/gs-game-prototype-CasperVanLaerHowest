@@ -1,12 +1,20 @@
 #pragma once
+#include "TextureManager.h"
+#include "Block.h"
 class TextManager
 {
 public:
-	TextManager();
+	TextManager(TextureManager* textureManager);
 	~TextManager();
 
-	void Draw(int id, Rectf srcR) const;
+	void Draw() const;
 
+	void ProcessMouseDownEvent(const SDL_MouseButtonEvent& e) ;
 private:
+	TextureManager* m_textureManager;
+	Block* m_blocks[20];
+	void UpdateCostStart();
+
+	void CheckCollision(float x, float y);
 };
 

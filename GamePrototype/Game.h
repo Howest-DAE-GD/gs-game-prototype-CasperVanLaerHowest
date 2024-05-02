@@ -2,6 +2,7 @@
 #include "BaseGame.h"
 #include "TextureManager.h"
 #include "Text.h"
+#include "TextManager.h"
 class Game : public BaseGame
 {
 public:
@@ -27,6 +28,7 @@ private:
 
 
 	TextureManager* m_TextureManager;
+	TextManager* m_TextManager;
 	Text* m_Text;
 	// FUNCTIONS
 	void Initialize();
