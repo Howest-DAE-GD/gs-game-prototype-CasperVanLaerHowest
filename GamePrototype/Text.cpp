@@ -43,6 +43,11 @@ std::string Text::GetText() const
 	return m_Text;
 }
 
+void Text::SetLocation(Point2f location)
+{
+	m_Location = location;
+}
+
 Rectf Text::GetRect(char letter) const
 {
 	switch (letter)

@@ -13,6 +13,7 @@ public:
 
 	void SetText(std::string text);
 	std::string GetText() const;
+	void SetLocation(Point2f location);
 private:
 
 	TextureManager* m_TextureManager;

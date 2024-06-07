@@ -42,4 +42,14 @@ Texture* TextureManager::GetTexturePtr(int id)
 void TextureManager::LoadTextures()
 {
 	m_pAllTextures[0] = new Texture("font1.png");
+	m_pAllTextures[1] = new Texture("guy.png");
+	m_pAllTextures[2] = new Texture("guyV2.png");
+	m_pAllTextures[3] = new Texture("guyV3.png");
+	m_pAllTextures[4] = new Texture("guyV4.png");
+	m_pAllTextures[5] = new Texture("guyV5.png");
+	m_pAllTextures[6] = new Texture("guyV6.png");
+	m_pAllTextures[7] = new Texture("guyV7.png");
+	m_pAllTextures[8] = new Texture("guyV8.png");
+	m_pAllTextures[9] = new Texture("guyV9.png");
+	m_pAllTextures[10] = new Texture("guyV10.png");
 }

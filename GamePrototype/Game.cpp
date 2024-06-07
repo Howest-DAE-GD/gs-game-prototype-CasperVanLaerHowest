@@ -44,6 +44,7 @@ void Game::Update( float elapsedSec )
 		std::string newText = std::to_string(number);
 		m_Text->SetText(newText);
 	}
+	m_TextManager->UpdateMoney();
 }
 
 void Game::Draw( ) const
@@ -56,7 +57,7 @@ void Game::Draw( ) const
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
-
+	m_TextManager->ProcessKeyDownEvent(e);
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
