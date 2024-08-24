@@ -2,6 +2,7 @@
 #include "BaseGame.h"
 #include "TextureManager.h"
 #include "Player.h"
+#include "Enemy.h"
 
 class Game : public BaseGame
 {
@@ -24,10 +25,14 @@ public:
 	void ProcessMouseDownEvent( const SDL_MouseButtonEvent& e ) override;
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
+	Point2f GetEnemyPosition(int index);
+	void KillEnemy(int index);
+
 private:
 
 	TextureManager* m_TextureManager;
 	Player* m_Player;
+	Enemy* m_Enemy[8];
 
 	// FUNCTIONS
 	void Initialize();

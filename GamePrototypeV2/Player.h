@@ -1,5 +1,6 @@
 #pragma once
 
+class Game;
 
 struct Bullet
 {
@@ -12,7 +13,7 @@ struct Bullet
 class Player
 {
 public:
-	Player();
+	Player(Game* Game);
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -21,6 +22,8 @@ public:
 	void ProcessKeyUpEvent(const SDL_KeyboardEvent& e);
 
 private:
+	Game* m_Game;
+
 	//player
 	Point2f m_Position;
 	Point2f m_Size;
@@ -34,5 +37,6 @@ private:
 
 	//functions
 	void SpawnBullet();
+	void CheckBulletCollision();
 };
 

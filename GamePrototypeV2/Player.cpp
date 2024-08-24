@@ -1,14 +1,16 @@
 #include "pch.h"
 #include "Player.h"
 #include "utils.h"
+#include "Game.h"
 
-Player::Player() :
+Player::Player(Game* Game) :
 	m_Position(375, 100),
 	m_Size(50, 50),
 	m_Color(255, 0, 0, 1),
 	m_Velocity(0),
 	m_ShootTimer(0)
 {
+	m_Game = Game;
 }
 
 void Player::Update(float elapsedSec)
@@ -47,6 +49,8 @@ void Player::Update(float elapsedSec)
 			}
 		}
 	}
+
+	CheckBulletCollision();
 }
 
 void Player::Draw()
@@ -108,5 +112,25 @@ void Player::SpawnBullet()
 	if(m_BulletIndex >= 10)
 	{
 		m_BulletIndex = 0;
+	}
+}
+
+void Player::CheckBulletCollision()
+{
+	for (int i = 0; i < 10; i++)
+	{
+		if (m_Bullets[i].m_IsActive)
+		{
+			for (int f = 0; f < 8; f++)
+			{
+				Point2f loc = m_Game->GetEnemyPosition(f);
+				if(loc.x <= m_Bullets[i].m_Position.x  && loc.x + 40 >= m_Bullets[i].m_Position.x && loc.y <= m_Bullets[i].m_Position.y + 10 && loc.y + 40 >= m_Bullets[i].m_Position.y)
+				{
+					m_Bullets[i].m_IsActive = false;
+					m_Game->KillEnemy(f);
+				}
+			}
+			
+		}
 	}
 }

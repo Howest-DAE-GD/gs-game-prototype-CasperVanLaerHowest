@@ -15,13 +15,23 @@ Game::~Game( )
 void Game::Initialize( )
 {
 	m_TextureManager = new TextureManager();
-	m_Player = new Player();
+	for (int i = 0; i < 8; i++)
+	{
+		m_Enemy[i] = new Enemy();
+	}
+	m_Player = new Player(this);
+	
 }
 
 void Game::Cleanup( )
 {
 	delete m_TextureManager;
 	delete m_Player;
+
+	for (int i = 0; i < 8; i++)
+	{
+		delete m_Enemy[i];
+	}
 }
 
 void Game::Update( float elapsedSec )
@@ -37,6 +47,11 @@ void Game::Update( float elapsedSec )
 	//{
 	//	std::cout << "Left and up arrow keys are down\n";
 	//}
+
+	for (int i = 0; i < 8; i++)
+	{
+		m_Enemy[i]->Update(elapsedSec);
+	}
 }
 
 void Game::Draw( ) const
@@ -44,6 +59,13 @@ void Game::Draw( ) const
 	ClearBackground( );
 	m_TextureManager->Draw(0, Rectf(0, 0, 800, 900));
 	m_Player->Draw();
+
+	for (int i = 0; i < 8; i++)
+	{
+		if (m_Enemy[i]->GetIsAlive() == true) {
+			m_Enemy[i]->Draw();
+		}
+	}
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
@@ -109,6 +131,16 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 	//	std::cout << " middle button " << std::endl;
 	//	break;
 	//}
+}
+
+Point2f Game::GetEnemyPosition(int index)
+{
+	return m_Enemy[index]->GetPosition();
+}
+
+void Game::KillEnemy(int index)
+{
+	m_Enemy[index]->SetIsAlive(false);
 }
 
 void Game::ClearBackground( ) const
