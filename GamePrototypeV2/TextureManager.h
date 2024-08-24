@@ -17,7 +17,7 @@ public:
 
 private:
 
-	static const int M_NR_TEXTURES{ 1 };
+	static const int M_NR_TEXTURES{ 2 };
 	Texture* m_pAllTextures[M_NR_TEXTURES];
 
 	void LoadTextures();

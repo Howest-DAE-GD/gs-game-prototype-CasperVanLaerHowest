@@ -32,39 +32,52 @@ void Game::Cleanup( )
 	{
 		delete m_Enemy[i];
 	}
+	delete m_PointTexture;
+	delete m_HealthTexture;
 }
 
 void Game::Update( float elapsedSec )
 {
-	m_Player->Update(elapsedSec);
-	// Check keyboard state
-	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	//if ( pStates[SDL_SCANCODE_RIGHT] )
-	//{
-	//	std::cout << "Right arrow key is down\n";
-	//}
-	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
-	//{
-	//	std::cout << "Left and up arrow keys are down\n";
-	//}
+	if(m_GameState == GameState::game){
+		m_Player->Update(elapsedSec);
 
-	for (int i = 0; i < 8; i++)
-	{
-		m_Enemy[i]->Update(elapsedSec);
+		for (int i = 0; i < 8; i++)
+		{
+			m_Enemy[i]->Update(elapsedSec);
+		}
+		m_PointTexture = new Texture("Points : " + std::to_string(m_Points), "arial.ttf", 24, Color4f{1.f ,0.f,0.f,1.f});
+		m_HealthTexture = new Texture("Health : " + std::to_string(m_Health), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+
+		CheckDamage();
+		ResetWave();
+		CheckGameState();	
+	}
+	else if (m_GameState == GameState::gameOver) {
+
+		m_PointTexture = new Texture("Final Score : " + std::to_string(m_Points), "arial.ttf", 48, Color4f{ 1.f ,0.f,0.f,1.f });
 	}
 }
 
-void Game::Draw( ) const
+void Game::Draw() const
 {
-	ClearBackground( );
-	m_TextureManager->Draw(0, Rectf(0, 0, 800, 900));
-	m_Player->Draw();
+	ClearBackground();
+	if (m_GameState == GameState::game) {
+		m_TextureManager->Draw(0, Rectf(0, 0, 800, 900));
+		m_Player->Draw();
 
-	for (int i = 0; i < 8; i++)
-	{
-		if (m_Enemy[i]->GetIsAlive() == true) {
-			m_Enemy[i]->Draw();
+		for (int i = 0; i < 8; i++)
+		{
+			if (m_Enemy[i]->GetIsAlive() == true) {
+				m_Enemy[i]->Draw();
+			}
 		}
+
+		m_PointTexture->Draw(Point2f{ 40, 10 });
+		m_HealthTexture->Draw(Point2f{ 40, 40 });
+	}
+	else if (m_GameState == GameState::gameOver) {
+		m_TextureManager->Draw(1, Rectf(0, 0, 800, 900));
+		m_PointTexture->Draw(Point2f{ 225, 425 });
 	}
 }
 
@@ -143,8 +156,60 @@ void Game::KillEnemy(int index)
 	m_Enemy[index]->SetIsAlive(false);
 }
 
+void Game::AddPoints(int points)
+{
+	m_Points += points;
+}
+
+bool Game::IsEnemyAlive(int index)
+{
+	return m_Enemy[index]->GetIsAlive();
+}
+
 void Game::ClearBackground( ) const
 {
 	glClearColor( 0.0f, 0.0f, 0.3f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
+}
+
+void Game::CheckDamage()
+{
+	for (int i = 0; i < 8; i++)
+	{
+		if (m_Enemy[i]->GetIsAlive() == true) {
+			if (m_Enemy[i]->GetPosition().y < 50)
+			{
+				m_Health -= 1;
+				m_Enemy[i]->SetIsAlive(false);
+			}
+		}
+	}
+}
+
+void Game::ResetWave()
+{
+	int counter = 0;
+	for (int i = 0; i < 8; i++)
+	{
+		if(m_Enemy[i]->GetIsAlive() == false)
+		{
+			counter++;
+		}
+	}
+	if(counter == 8)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			m_Enemy[i]->Reset();
+			m_Enemy[i]->IncreaseSpeed(rand() % 30);
+		}
+	}
+}
+
+void Game::CheckGameState()
+{
+	if (m_Health <= 0)
+	{
+		m_GameState = GameState::gameOver;
+	}
 }

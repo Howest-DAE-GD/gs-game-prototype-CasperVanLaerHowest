@@ -42,4 +42,5 @@ Texture* TextureManager::GetTexturePtr(int id)
 void TextureManager::LoadTextures()
 {
 	m_pAllTextures[0] = new Texture("Map1.png");
+	m_pAllTextures[1] = new Texture("End.png");
 }

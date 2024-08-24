@@ -3,6 +3,13 @@
 #include "TextureManager.h"
 #include "Player.h"
 #include "Enemy.h"
+#include "Texture.h"
+
+enum class GameState
+{
+	game,
+	gameOver
+};
 
 class Game : public BaseGame
 {
@@ -27,15 +34,28 @@ public:
 
 	Point2f GetEnemyPosition(int index);
 	void KillEnemy(int index);
+	void AddPoints(int points);
+	bool IsEnemyAlive(int index);
 
 private:
+	GameState m_GameState{ GameState::game };
 
 	TextureManager* m_TextureManager;
 	Player* m_Player;
 	Enemy* m_Enemy[8];
 
+	Texture* m_PointTexture;
+	int m_Points{ 0 };
+
+	Texture* m_HealthTexture;
+	int m_Health{ 0 };
+
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );
 	void ClearBackground( ) const;
+
+	void CheckDamage();
+	void ResetWave();
+	void CheckGameState();
 };

@@ -74,10 +74,10 @@ void Player::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_LEFT:
-		m_Velocity = -150;
+		m_Velocity = -250;
 		break;
 	case SDLK_RIGHT:
-		m_Velocity = 150;
+		m_Velocity = 250;
 		break;
 	}
 }
@@ -123,11 +123,14 @@ void Player::CheckBulletCollision()
 		{
 			for (int f = 0; f < 8; f++)
 			{
-				Point2f loc = m_Game->GetEnemyPosition(f);
-				if(loc.x <= m_Bullets[i].m_Position.x  && loc.x + 40 >= m_Bullets[i].m_Position.x && loc.y <= m_Bullets[i].m_Position.y + 10 && loc.y + 40 >= m_Bullets[i].m_Position.y)
-				{
-					m_Bullets[i].m_IsActive = false;
-					m_Game->KillEnemy(f);
+				if(m_Game->IsEnemyAlive(f)){
+					Point2f loc = m_Game->GetEnemyPosition(f);
+					if(loc.x <= m_Bullets[i].m_Position.x  && loc.x + 40 >= m_Bullets[i].m_Position.x && loc.y <= m_Bullets[i].m_Position.y + 10 && loc.y + 40 >= m_Bullets[i].m_Position.y)
+					{
+						m_Bullets[i].m_IsActive = false;
+						m_Game->KillEnemy(f);
+						m_Game->AddPoints(1);
+					}
 				}
 			}
 			
