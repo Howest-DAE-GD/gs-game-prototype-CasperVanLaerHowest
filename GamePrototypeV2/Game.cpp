@@ -14,15 +14,19 @@ Game::~Game( )
 
 void Game::Initialize( )
 {
-	
+	m_TextureManager = new TextureManager();
+	m_Player = new Player();
 }
 
 void Game::Cleanup( )
 {
+	delete m_TextureManager;
+	delete m_Player;
 }
 
 void Game::Update( float elapsedSec )
 {
+	m_Player->Update(elapsedSec);
 	// Check keyboard state
 	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
 	//if ( pStates[SDL_SCANCODE_RIGHT] )
@@ -38,15 +42,19 @@ void Game::Update( float elapsedSec )
 void Game::Draw( ) const
 {
 	ClearBackground( );
+	m_TextureManager->Draw(0, Rectf(0, 0, 800, 900));
+	m_Player->Draw();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
+	m_Player->ProcessKeyDownEvent(e);
 	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
+	m_Player->ProcessKeyUpEvent(e);
 	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
 	//switch ( e.keysym.sym )
 	//{

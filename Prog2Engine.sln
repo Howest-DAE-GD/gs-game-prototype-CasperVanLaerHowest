@@ -10,6 +10,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamePrototype", "GameProtot
 		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC} = {5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GamePrototypeV2", "GamePrototypeV2\GamePrototypeV2.vcxproj", "{8265F157-FCF0-41B2-BB66-D8F75905ED9B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC} = {5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -34,6 +39,14 @@ Global
 		{F3EBE033-7D91-46CF-8398-C5AF8D437D74}.Release|x64.Build.0 = Release|x64
 		{F3EBE033-7D91-46CF-8398-C5AF8D437D74}.Release|x86.ActiveCfg = Release|Win32
 		{F3EBE033-7D91-46CF-8398-C5AF8D437D74}.Release|x86.Build.0 = Release|Win32
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Debug|x64.ActiveCfg = Debug|x64
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Debug|x64.Build.0 = Debug|x64
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Debug|x86.ActiveCfg = Debug|Win32
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Debug|x86.Build.0 = Debug|Win32
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Release|x64.ActiveCfg = Release|x64
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Release|x64.Build.0 = Release|x64
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Release|x86.ActiveCfg = Release|Win32
+		{8265F157-FCF0-41B2-BB66-D8F75905ED9B}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

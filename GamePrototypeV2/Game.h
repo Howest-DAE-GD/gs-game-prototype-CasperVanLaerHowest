@@ -1,5 +1,8 @@
 #pragma once
 #include "BaseGame.h"
+#include "TextureManager.h"
+#include "Player.h"
+
 class Game : public BaseGame
 {
 public:
@@ -22,6 +25,9 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
 private:
+
+	TextureManager* m_TextureManager;
+	Player* m_Player;
 
 	// FUNCTIONS
 	void Initialize();
