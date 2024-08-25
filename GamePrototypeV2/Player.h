@@ -1,4 +1,5 @@
 #pragma once
+#include "Texture.h"
 
 class Game;
 
@@ -14,12 +15,16 @@ class Player
 {
 public:
 	Player(Game* Game);
+	~Player();
 
 	void Update(float elapsedSec);
 	void Draw();
 
 	void ProcessKeyDownEvent(const SDL_KeyboardEvent& e);
 	void ProcessKeyUpEvent(const SDL_KeyboardEvent& e);
+
+	void IncreaseSpeed(float speedIncrease);
+	void IncreaseShootSpeed(float shootSpeedIncrease);
 
 private:
 	Game* m_Game;
@@ -31,9 +36,16 @@ private:
 	float m_Velocity;
 	float m_ShootTimer;
 
+	float m_ShootSpeed = 0.7f;
+	float m_MoveSpeed = 250.0f;
+
 	//bullets
-	Bullet m_Bullets[10];
+	Bullet m_Bullets[50];
 	int m_BulletIndex = 0;
+
+	//textures
+	Texture* m_MoveSpeedTexture;
+	Texture* m_ShootSpeedTexture;
 
 	//functions
 	void SpawnBullet();

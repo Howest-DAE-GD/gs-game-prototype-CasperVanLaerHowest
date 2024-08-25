@@ -11,10 +11,25 @@ Player::Player(Game* Game) :
 	m_ShootTimer(0)
 {
 	m_Game = Game;
+	m_MoveSpeedTexture = new Texture("Move Speed : " + std::to_string(m_MoveSpeed), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+	m_ShootSpeedTexture = new Texture("Shoot Speed : " + std::to_string(m_ShootSpeed), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+}
+
+Player::~Player()
+{
+	
 }
 
 void Player::Update(float elapsedSec)
 {
+	//delete textures
+	delete m_MoveSpeedTexture;
+	delete m_ShootSpeedTexture;
+
+	//update Textures
+	m_MoveSpeedTexture = new Texture("Move Speed : " + std::to_string(m_MoveSpeed), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+	m_ShootSpeedTexture = new Texture("Shoot Speed : " + std::to_string(m_ShootSpeed), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+
 	//checks to let it stay in bounds
 	if (m_Position.x < 50)
 	{
@@ -29,7 +44,7 @@ void Player::Update(float elapsedSec)
 	}
 
 	//shoots the bullets
-	if (m_ShootTimer > 0.7f) {
+	if (m_ShootTimer > m_ShootSpeed) {
 		SpawnBullet();
 		m_ShootTimer = 0;
 	} else {
@@ -37,7 +52,7 @@ void Player::Update(float elapsedSec)
 	}
 
 	//updates the bullets
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		if (m_Bullets[i].m_IsActive)
 		{
@@ -55,12 +70,16 @@ void Player::Update(float elapsedSec)
 
 void Player::Draw()
 {
+	//draws the textures
+	m_MoveSpeedTexture->Draw(Point2f{ 450,10 });
+	m_ShootSpeedTexture->Draw(Point2f{ 450,40 });
+
 	//draws the player
 	utils::SetColor(m_Color);
 	utils::FillRect(m_Position.x, m_Position.y, m_Size.x, m_Size.y);
 
 	//draws the bullets
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		if(m_Bullets[i].m_IsActive){
 			utils::SetColor(Color4f{ 255,255,0,1 });
@@ -74,10 +93,10 @@ void Player::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 	switch (e.keysym.sym)
 	{
 	case SDLK_LEFT:
-		m_Velocity = -250;
+		m_Velocity = -m_MoveSpeed;
 		break;
 	case SDLK_RIGHT:
-		m_Velocity = 250;
+		m_Velocity = m_MoveSpeed;
 		break;
 	}
 }
@@ -95,9 +114,19 @@ void Player::ProcessKeyUpEvent(const SDL_KeyboardEvent& e)
 	}
 }
 
+void Player::IncreaseSpeed(float speedIncrease)
+{
+	m_MoveSpeed += speedIncrease;
+}
+
+void Player::IncreaseShootSpeed(float shootSpeedIncrease)
+{
+	m_ShootSpeed -= m_ShootSpeed / shootSpeedIncrease;
+}
+
 void Player::SpawnBullet()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		if (m_BulletIndex == i) {
 			m_Bullets[i].m_IsActive = true;
@@ -109,7 +138,7 @@ void Player::SpawnBullet()
 		}
 	}
 	m_BulletIndex++;
-	if(m_BulletIndex >= 10)
+	if(m_BulletIndex >= 50)
 	{
 		m_BulletIndex = 0;
 	}
@@ -117,7 +146,7 @@ void Player::SpawnBullet()
 
 void Player::CheckBulletCollision()
 {
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 50; i++)
 	{
 		if (m_Bullets[i].m_IsActive)
 		{

@@ -201,7 +201,20 @@ void Game::ResetWave()
 		for (int i = 0; i < 8; i++)
 		{
 			m_Enemy[i]->Reset();
-			m_Enemy[i]->IncreaseSpeed(rand() % 30);
+			m_Enemy[i]->IncreaseSpeed(rand() % 20);
+		}
+		switch (rand() % 3)
+		{
+			case 0:
+				m_Health += 1;
+				break;
+			case 1:
+				m_Player->IncreaseSpeed(50);
+				break;
+			case 2:
+				m_Player->IncreaseShootSpeed(10);
+			default:
+				break;
 		}
 	}
 }

@@ -48,7 +48,7 @@ private:
 	int m_Points{ 0 };
 
 	Texture* m_HealthTexture;
-	int m_Health{ 0 };
+	int m_Health{ 1 };
 
 	// FUNCTIONS
 	void Initialize();
