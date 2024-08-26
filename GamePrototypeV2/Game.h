@@ -50,6 +50,9 @@ private:
 	Texture* m_HealthTexture;
 	int m_Health{ 1 };
 
+	Texture* m_WaveTexture;
+	int m_Wave{ 1 };
+
 	bool m_Paused{ false };
 	Texture* m_CardTexture[3];
 	int m_Card[3];
