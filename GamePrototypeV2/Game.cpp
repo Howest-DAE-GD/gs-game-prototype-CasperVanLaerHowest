@@ -156,6 +156,9 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 				case 2:
 					m_Player->IncreaseShootSpeed(10);
 					break;
+				case 3:
+					m_Player->SetDubbelShot(true);
+					break;
 				}
 				m_Paused = false;
 			}
@@ -172,6 +175,9 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 				case 2:
 					m_Player->IncreaseShootSpeed(10);
 					break;
+				case 3:
+					m_Player->SetDubbelShot(true);
+					break;
 				}
 				m_Paused = false;
 			}
@@ -187,6 +193,9 @@ void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 					break;
 				case 2:
 					m_Player->IncreaseShootSpeed(10);
+					break;
+				case 3:
+					m_Player->SetDubbelShot(true);
 					break;
 				}
 				m_Paused = false;
@@ -293,7 +302,7 @@ void Game::SetRandomCard()
 {
 	for (int i = 0; i < 3; i++)
 	{
-		switch (rand() % 3) {
+		switch (rand() % 4) {
 			case 0:
 				m_CardTexture[i] = new Texture("Get 1 health" , "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
 				m_Card[i] = 0;
@@ -305,6 +314,10 @@ void Game::SetRandomCard()
 			case 2:
 				m_CardTexture[i] = new Texture("Increase shooting speed", "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
 				m_Card[i] = 2;
+				break;
+			case 3:
+				m_CardTexture[i] = new Texture("Get Dubbel Shot", "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+				m_Card[i] = 3;
 				break;
 		}
 	}

@@ -45,6 +45,9 @@ void Player::Update(float elapsedSec)
 
 	//shoots the bullets
 	if (m_ShootTimer > m_ShootSpeed) {
+		if (m_DubbelShot) {
+			SpawnBullet();
+		}
 		SpawnBullet();
 		m_ShootTimer = 0;
 	} else {
@@ -52,7 +55,7 @@ void Player::Update(float elapsedSec)
 	}
 
 	//updates the bullets
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (m_Bullets[i].m_IsActive)
 		{
@@ -79,7 +82,7 @@ void Player::Draw()
 	utils::FillRect(m_Position.x, m_Position.y, m_Size.x, m_Size.y);
 
 	//draws the bullets
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if(m_Bullets[i].m_IsActive){
 			utils::SetColor(Color4f{ 255,255,0,1 });
@@ -124,21 +127,37 @@ void Player::IncreaseShootSpeed(float shootSpeedIncrease)
 	m_ShootSpeed -= m_ShootSpeed / shootSpeedIncrease;
 }
 
+void Player::SetDubbelShot(bool dubbelShot)
+{
+	m_DubbelShot = dubbelShot;
+}
+
 void Player::SpawnBullet()
 {
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (m_BulletIndex == i) {
 			m_Bullets[i].m_IsActive = true;
 			m_Bullets[i].m_Position = m_Position;
 			m_Bullets[i].m_Velocity = 500;
 			m_Bullets[i].m_LifeTime = 0;
-			m_Bullets[i].m_Position.x += m_Size.x / 2;
+			if(m_DubbelShot && m_Switch){
+				m_Bullets[i].m_Position.x += m_Size.x / 2 - 10;
+				m_Switch = false;
+			}
+			else if (m_DubbelShot && !m_Switch)
+			{
+				m_Bullets[i].m_Position.x += m_Size.x / 2 + 10;
+				m_Switch = true;
+			}
+			else {
+				m_Bullets[i].m_Position.x += m_Size.x / 2;
+			}
 			m_Bullets[i].m_Position.y += 50;
 		}
 	}
 	m_BulletIndex++;
-	if(m_BulletIndex >= 50)
+	if(m_BulletIndex >= 200)
 	{
 		m_BulletIndex = 0;
 	}
@@ -146,7 +165,7 @@ void Player::SpawnBullet()
 
 void Player::CheckBulletCollision()
 {
-	for (int i = 0; i < 50; i++)
+	for (int i = 0; i < 200; i++)
 	{
 		if (m_Bullets[i].m_IsActive)
 		{

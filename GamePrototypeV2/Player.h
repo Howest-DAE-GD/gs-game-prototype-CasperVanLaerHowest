@@ -25,6 +25,7 @@ public:
 
 	void IncreaseSpeed(float speedIncrease);
 	void IncreaseShootSpeed(float shootSpeedIncrease);
+	void SetDubbelShot(bool dubbelShot);
 
 private:
 	Game* m_Game;
@@ -40,8 +41,11 @@ private:
 	float m_MoveSpeed = 250.0f;
 
 	//bullets
-	Bullet m_Bullets[50];
+	Bullet m_Bullets[200];
 	int m_BulletIndex = 0;
+
+	bool m_DubbelShot = false;
+	bool m_Switch = true;
 
 	//textures
 	Texture* m_MoveSpeedTexture;
