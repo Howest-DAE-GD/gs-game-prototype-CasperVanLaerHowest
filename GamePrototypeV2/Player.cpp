@@ -131,7 +131,7 @@ void Player::SpawnBullet()
 		if (m_BulletIndex == i) {
 			m_Bullets[i].m_IsActive = true;
 			m_Bullets[i].m_Position = m_Position;
-			m_Bullets[i].m_Velocity = 250;
+			m_Bullets[i].m_Velocity = 500;
 			m_Bullets[i].m_LifeTime = 0;
 			m_Bullets[i].m_Position.x += m_Size.x / 2;
 			m_Bullets[i].m_Position.y += 50;

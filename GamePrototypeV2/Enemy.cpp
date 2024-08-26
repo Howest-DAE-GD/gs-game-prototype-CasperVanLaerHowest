@@ -7,7 +7,7 @@ Enemy::Enemy() :
 	m_IsAlive(true),
 	m_Speed(50.0f)
 {
-	m_Position.y = rand() % 150 + 900;
+	m_Position.y = rand() % 250 + 900;
 	m_Position.x = rand() % 650 + 50;
 }
 
@@ -46,7 +46,7 @@ void Enemy::SetIsAlive(bool isAlive)
 void Enemy::Reset()
 {
 	m_IsAlive = true;
-	m_Position.y = rand() % 150 + 900;
+	m_Position.y = rand() % 250 + 900;
 	m_Position.x = rand() % 650 + 50;
 }
 

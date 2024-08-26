@@ -50,6 +50,10 @@ private:
 	Texture* m_HealthTexture;
 	int m_Health{ 1 };
 
+	bool m_Paused{ false };
+	Texture* m_CardTexture[3];
+	int m_Card[3];
+
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );
@@ -58,4 +62,6 @@ private:
 	void CheckDamage();
 	void ResetWave();
 	void CheckGameState();
+	void ShowCards();
+	void SetRandomCard();
 };
