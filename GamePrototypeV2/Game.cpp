@@ -41,6 +41,7 @@ void Game::Cleanup( )
 	delete m_PointTexture;
 	delete m_HealthTexture;
 	delete m_WaveTexture;
+	delete m_AchievementTexture;
 	for (int i = 0; i < 3; i++)
 	{
 		delete m_CardTexture[i];
@@ -63,6 +64,8 @@ void Game::Update( float elapsedSec )
 			m_PointTexture = new Texture("Points : " + std::to_string(m_Points), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
 			m_HealthTexture = new Texture("Health : " + std::to_string(m_Health), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
 			m_WaveTexture = new Texture("Wave : " + std::to_string(m_Wave), "arial.ttf", 24, Color4f{ 1.f ,0.f,0.f,1.f });
+			m_AchievementTexture = new Texture("You reached wave " + std::to_string(m_Wave), "arial.ttf", 48, Color4f{ 1.f ,0.f,0.f,1.f });
+			m_Counter += elapsedSec;
 
 			CheckDamage();
 			ResetWave();
@@ -92,6 +95,10 @@ void Game::Draw() const
 		m_PointTexture->Draw(Point2f{ 40, 10 });
 		m_HealthTexture->Draw(Point2f{ 40, 40 });
 		m_WaveTexture->Draw(Point2f{ 200, 10 });
+
+		if (m_Counter < 2.f && !m_Paused) {
+			m_AchievementTexture->Draw(Point2f{ 200, 700 });
+		}
 	}
 	else if (m_GameState == GameState::gameOver) {
 		m_TextureManager->Draw(1, Rectf(0, 0, 800, 900));
@@ -279,6 +286,7 @@ void Game::ResetWave()
 	if(counter == 8)
 	{
 		m_Wave++;
+		m_Counter = 0.f;
 		for (int i = 0; i < 8; i++)
 		{
 			m_Enemy[i]->Reset();

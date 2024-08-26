@@ -57,6 +57,9 @@ private:
 	Texture* m_CardTexture[3];
 	int m_Card[3];
 
+	float m_Counter{ 3.f };
+	Texture* m_AchievementTexture;
+
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );
